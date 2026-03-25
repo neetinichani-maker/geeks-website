@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geeks for America - Science & Progress</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #DC143C;
+            --primary-blue: #001a4d;
+            --accent-blue: #0052CC;
+            --light-blue: #E8F0FF;
+            --text-dark: #1a1a1a;
+            --text-light: #555;
+            --white: #ffffff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* ============ NAVIGATION ============ */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            padding: 0.75rem 2rem;
+            animation: slideDown 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-center {
+            display: flex;
+            gap: 3rem;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-red), var(--primary-blue));
+            transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .nav-link:hover {
+            color: var(--primary-red);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, var(--primary-red), #ff1a4d);
+            color: var(--white);
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 8px 24px rgba(220, 20, 60, 0.3);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(220, 20, 60, 0.4);
+        }
+
+        /* ============ SECTIONS & PAGE CONTENT ============ */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* ============ HERO SECTION ============ */
+        .hero {
+            margin-top: 60px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #003d7a 100%);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(220, 20, 60, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 12s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 82, 204, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 15s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(40px) scale(1.05); }
+        }
+
+        .hero-img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+            text-align: center;
+            animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 8vw, 5.5rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            letter-spacing: -2px;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-primary {
+            background: var(--primary-red);
+            color: var(--white);
+            box-shadow: 0 10px 30px rgba(220, 20, 60, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px rgba(220, 20, 60, 0.4);
+            background: #ff1a4d;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--white);
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-6px);
+        }
+
+        /* ============ SCROLL INDICATOR ============ */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        .scroll-dot {
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+
+        /* ============ CONTENT SECTIONS ============ */
+        .content-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            max-width: 700px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.2s forwards;
+        }
+
+        /* ============ BELIEFS SECTION ============ */
+        .beliefs-section {
+            background: linear-gradient(to bottom, var(--white), var(--light-blue));
+        }
+
+        .beliefs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .belief-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border-left: 4px solid var(--primary-red);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            opacity: 0;
+            transform: translateY(40px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .belief-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--primary-blue) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
+        }
+
+        .belief-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .belief-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-left-color: var(--primary-blue);
+        }
+
+        .belief-card h3 {
+            color: var(--primary-blue);
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        .belief-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        /* ============ CANDIDATES SECTION ============ */
+        .candidates-section {
+            background: var(--white);
+        }
+
+        .candidates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .candidate-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            opacity: 0;
+            transform: translateY(40px);
+            position: relative;
+        }
+
+        .candidate-card:hover {
+            transform: translateY(-20px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .candidate-image {
+            width: 100%;
+            height: 320px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
+            overflow: hidden;
+            position: relative;
+        }
+
+        .candidate-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .candidate-card:hover .candidate-image img {
+            transform: scale(1.1);
+        }
+
+        .candidate-info {
+            padding: 2rem;
+        }
+
+        .candidate-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .candidate-district {
+            color: var(--primary-red);
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .candidate-bio {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .candidate-link {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .candidate-link:hover {
+            color: var(--primary-red);
+            gap: 1rem;
+        }
+
+        /* ============ ABOUT SECTION ============ */
+        .about-section {
+            background: linear-gradient(to bottom, var(--light-blue), var(--white));
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .about-content p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.9;
+            font-size: 1.05rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.1s forwards;
+        }
+
+        .about-image {
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            position: relative;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.2s forwards;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease-out;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* ============ PRESS SECTION ============ */
+        .press-section {
+            background: var(--white);
+        }
+
+        .press-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .press-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .press-item {
+            padding: 2rem;
+            border-left: 3px solid var(--primary-red);
+            background: var(--white);
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            opacity: 0;
+            transform: translateX(-40px);
+            position: relative;
+        }
+
+        .press-item:hover {
+            border-left-color: var(--primary-blue);
+            transform: translateX(0);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .press-date {
+            color: var(--primary-red);
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .press-title {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            transition: color 0.3s;
+        }
+
+        .press-item:hover .press-title {
+            color: var(--primary-red);
+        }
+
+        .press-excerpt {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .press-sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .sidebar-card {
+            background: linear-gradient(135deg, var(--light-blue), rgba(0, 82, 204, 0.05));
+            padding: 2.5rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary-red);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .sidebar-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-card h3 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .sidebar-card p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .sidebar-card a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .sidebar-card a:hover {
+            color: var(--primary-red);
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #003d7a 100%);
+            color: var(--white);
+            padding: 4rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            color: var(--primary-red);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-red);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 768px) {
+            .nav-center {
+                gap: 1.5rem;
+            }
+
+            .nav-link {
+                font-size: 0.85rem;
+            }
+
+            .hero-content {
+                padding: 1rem;
+            }
+
+            .about-grid,
+            .press-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                height: 350px;
+            }
+
+            .press-sidebar {
+                position: static;
+                top: auto;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .beliefs-grid,
+            .candidates-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============ ANIMATIONS & SCROLL EFFECTS ============ */
+        .fade-in {
+            opacity: 0;
+            animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            animation: slideInLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            animation: slideInRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ============ NAVIGATION ============ -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="showPage('home')">Geeks4America</a>
+            <div class="nav-center">
+                <a href="#" class="nav-link" onclick="showPage('home')">Home</a>
+                <a href="#" class="nav-link" onclick="showPage('about')">About</a>
+                <a href="#" class="nav-link" onclick="showPage('candidates')">Candidates</a>
+                <a href="#" class="nav-link" onclick="showPage('press')">Press</a>
+            </div>
+            <button class="nav-cta" onclick="alert('Donate to support pro-science candidates!')">Donate</button>
+        </div>
+    </nav>
+
+    <!-- ============ HOME PAGE ============ -->
+    <div id="home" class="page active">
+        <!-- HERO -->
+        <section class="hero">
+            <img src="https://cdn.prod.website-files.com/6984c7a16fa1845e5f3f870d/6984c7a16fa1845e5f3f8724_a50b71187440747980931fd2e51d6be4_12665%201.avif" alt="Hero background" class="hero-img">
+            <div class="hero-content">
+                <h1>We the Geeks</h1>
+                <p class="hero-subtitle">Science, technology, evidence, and logic are not partisan — they are patriotic.</p>
+                <div class="hero-buttons">
+                    <a href="#" onclick="showPage('candidates')" class="btn btn-primary">Discover Candidates</a>
+                    <a href="#" onclick="showPage('about')" class="btn btn-secondary">Learn Our Mission</a>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <div class="scroll-dot"></div>
+                <div class="scroll-dot"></div>
+                <div class="scroll-dot"></div>
+            </div>
+        </section>
+
+        <!-- BELIEFS -->
+        <section class="content-section beliefs-section">
+            <div class="section-container">
+                <h2 class="section-title">We Believe</h2>
+                <p class="section-subtitle">In a future powered by evidence, driven by progress, and centered on solving America's greatest challenges.</p>
+                <div class="beliefs-grid" id="beliefsGrid"></div>
+            </div>
+        </section>
+
+        <!-- CALL TO ACTION -->
+        <section class="content-section" style="background: linear-gradient(135deg, var(--primary-blue) 0%, #003d7a 100%); color: white;">
+            <div class="section-container" style="text-align: center;">
+                <h2 class="section-title" style="color: white; opacity: 0; animation: fadeInUp 0.8s ease-out forwards;">Ready to Build the Future?</h2>
+                <p class="section-subtitle" style="color: rgba(255, 255, 255, 0.9); opacity: 0; animation: fadeInUp 0.8s ease-out 0.2s forwards;">Support pro-science candidates who will fight for innovation, evidence-based policy, and American leadership.</p>
+                <div class="hero-buttons" style="opacity: 0; animation: fadeInUp 0.8s ease-out 0.4s forwards; margin-top: 2rem;">
+                    <a href="#" onclick="showPage('candidates')" class="btn btn-primary">Explore Candidates</a>
+                    <button class="btn btn-secondary" onclick="alert('Donate now!')">Donate Today</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ============ ABOUT PAGE ============ -->
+    <div id="about" class="page">
+        <!-- HERO SECTION -->
+        <section class="hero" style="min-height: 50vh;">
+            <div class="hero-content">
+                <h1 style="animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;">About Geeks for America</h1>
+                <p class="hero-subtitle" style="animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;">A movement for science-driven progress</p>
+            </div>
+        </section>
+
+        <!-- MISSION -->
+        <section class="content-section about-section">
+            <div class="section-container">
+                <div class="about-grid">
+                    <div class="about-content">
+                        <h2>Our Mission</h2>
+                        <p>Geeks for America is a grassroots movement of scientists, engineers, technologists, and informed citizens dedicated to ensuring that science, evidence, and expertise inform public policy.</p>
+                        <p>We believe that progress comes through innovation, that facts matter, and that America's future depends on our willingness to invest in research, education, and technology.</p>
+                        <p>We work to elect candidates who understand science, who will defend public institutions, and who recognize that solving America's biggest challenges requires evidence-based solutions.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="https://cdn.prod.website-files.com/6984c7a16fa1845e5f3f870d/6984c7a16fa1845e5f3f872e_believe.avif" alt="Science and innovation">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VALUES -->
+        <section class="content-section" style="background: var(--light-blue);">
+            <div class="section-container">
+                <h2 class="section-title">Our Core Values</h2>
+                <div class="beliefs-grid">
+                    <div class="belief-card">
+                        <h3>🔬 Evidence-Based</h3>
+                        <p>We trust in the scientific method and peer-reviewed research as the foundation for understanding our world.</p>
+                    </div>
+                    <div class="belief-card">
+                        <h3>🚀 Progress</h3>
+                        <p>America's strength comes from innovation and our willingness to solve hard problems through science.</p>
+                    </div>
+                    <div class="belief-card">
+                        <h3>🇺🇸 Patriotic</h3>
+                        <p>We believe science is patriotic. It's not partisan—it strengthens our nation and secures our future.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ============ CANDIDATES PAGE ============ -->
+    <div id="candidates" class="page">
+        <!-- HERO -->
+        <section class="hero" style="min-height: 50vh;">
+            <div class="hero-content">
+                <h1 style="animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;">Geek-Approved Candidates</h1>
+                <p class="hero-subtitle" style="animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;">Leaders bringing science and expertise to Congress</p>
+            </div>
+        </section>
+
+        <!-- CANDIDATES GRID -->
+        <section class="content-section candidates-section">
+            <div class="section-container">
+                <p class="section-subtitle" style="opacity: 0; animation: fadeInUp 0.8s ease-out forwards;">We're supporting candidates who bring scientific expertise, technical knowledge, and evidence-based thinking to Congress.</p>
+                <div class="candidates-grid" id="candidatesGrid"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ============ PRESS PAGE ============ -->
+    <div id="press" class="page">
+        <!-- HERO -->
+        <section class="hero" style="min-height: 50vh;">
+            <div class="hero-content">
+                <h1 style="animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;">Press & Media</h1>
+                <p class="hero-subtitle" style="animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;">News, coverage, and insights</p>
+            </div>
+        </section>
+
+        <!-- PRESS CONTENT -->
+        <section class="content-section press-section">
+            <div class="section-container">
+                <div class="press-grid">
+                    <div class="press-feed" id="pressFeed"></div>
+                    <div class="press-sidebar">
+                        <div class="sidebar-card">
+                            <h3>📰 Media Kit</h3>
+                            <p>Need information? Access logos, fact sheets, and key statistics.</p>
+                            <a href="#">Download Media Kit →</a>
+                        </div>
+                        <div class="sidebar-card">
+                            <h3>📧 Press Contact</h3>
+                            <p>For media inquiries and partnership opportunities:</p>
+                            <a href="mailto:press@wethegeeks.org">press@wethegeeks.org</a>
+                        </div>
+                        <div class="sidebar-card">
+                            <h3>💬 General Inquiries</h3>
+                            <p>Questions or volunteer opportunities?</p>
+                            <a href="mailto:hello@wethegeeks.org">hello@wethegeeks.org</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ============ FOOTER ============ -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Geeks for America</h4>
+                <p>Science, technology, evidence, and logic are patriotic—not partisan.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Navigate</h4>
+                <ul>
+                    <li><a href="#" onclick="showPage('home')">Home</a></li>
+                    <li><a href="#" onclick="showPage('about')">About Us</a></li>
+                    <li><a href="#" onclick="showPage('candidates')">Candidates</a></li>
+                    <li><a href="#" onclick="showPage('press')">Press</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Get Involved</h4>
+                <ul>
+                    <li><a href="#">Donate</a></li>
+                    <li><a href="#">Volunteer</a></li>
+                    <li><a href="#">Subscribe</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <ul>
+                    <li><a href="#">Twitter/X</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Geeks for America. Science is Patriotic.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Candidate Data
+        const candidates = [
+            {
+                name: "James Talarico",
+                district: "Texas",
+                bio: "Former middle school teacher and executive director for Reasoning Mind.",
+                image: "https://cdn.prod.website-files.com/6984c7a16fa1845e5f3f870e/69a63847ec1b2cfd594b9e6d_James_Talarico_Press_Conference_(cropped).jpg.webp"
+            },
+            {
+                name: "Rep. Janelle Bynum",
+                district: "OR-05",
+                bio: "Electrical engineer and small business leader fighting for climate solutions.",
+                image: "https://cdn.prod.website-files.com/6984c7a16fa1845e5f3f870e/698c3af32222be2ae26bb67f_01.jpg"
+            },
+            {
+                name: "Rep. George Whitesides",
+                district: "CA-27",
+                bio: "Former NASA Chief of Staff bringing deep scientific expertise to Congress.",
+                image: "https://cdn.prod.website-files.com/6984c7a16fa1845e5f3f870e/698c6e13f0c5790c9c1123eb_02.jpg"
+            },
+            {
+                name: "Bale Dalton",
+                district: "FL-07",
+                bio: "23-year Navy veteran and former NASA Chief of Staff.",
+                image: "https://cdn.prod.website-files.com/6984c7a16fa1845e5f3f870e/698c6e8097afd6b738f8b318_03.jpg"
+            },
+            {
+                name: "Christina Bohannan",
+                district: "IA-01",
+                bio: "Environmental engineer and law professor championing clean energy.",
+                image: "https://cdn.prod.website-files.com/6984c7a16fa1845e5f3f870e/698c6ec74578b287e9e59105_04.jpg"
+            },
+            {
+                name: "Sen. Jon Ossoff",
+                district: "Georgia",
+                bio: "Leading voice for public health infrastructure and biomedical research.",
+                image: "https://cdn.prod.website-files.com/6984c7a16fa1845e5f3f870e/698c6f5551a14f277ae632fa_05.png"
+            },
+            {
+                name: "Dr. Annie Andrews",
+                district: "South Carolina",
+                bio: "Pediatrician and gun-violence prevention researcher.",
+                image: "https://cdn.prod.website-files.com/6984c7a16fa1845e5f3f870e/698c6fb34186adabb157a43a_06.jpg"
+            }
+        ];
+
+        const beliefs = [
+            { title: "Facts First", desc: "Facts should inform opinions, not the other way around. Evidence-based decision making powers progress." },
+            { title: "Science Drives Progress", desc: "Scientific discovery has lifted billions out of poverty and solved humanity's greatest challenges." },
+            { title: "America Leads", desc: "By investing in research and innovation, America will continue to lead the world." },
+            { title: "Reject Denial", desc: "Climate change is real. Vaccines work. Public health matters. We reject the erosion of truth." },
+            { title: "Defend Expertise", desc: "Those who dedicate their lives to understanding complex problems deserve our respect." },
+            { title: "Build Solutions", desc: "We focus on what works. Real-world, evidence-based solutions that improve lives." }
+        ];
+
+        const pressReleases = [
+            {
+                date: "March 20, 2026",
+                title: "Geeks for America Endorses Seven Pro-Science Candidates",
+                excerpt: "Following a comprehensive review, we announce our 2026 endorsements bringing together scientists and technologists."
+            },
+            {
+                date: "March 15, 2026",
+                title: "Opinion: Why Science Cannot Be Partisan",
+                excerpt: "Weaponizing science in politics threatens innovation, growth, and American competitiveness on the global stage."
+            },
+            {
+                date: "March 10, 2026",
+                title: "The Geek Movement: Scientists Running for Office",
+                excerpt: "A new wave of technically-minded candidates is bringing evidence-based solutions to Congress."
+            },
+            {
+                date: "March 5, 2026",
+                title: "Swing Left & Geeks Partner for 2026",
+                excerpt: "Two grassroots organizations announce a joint effort to support pro-science candidates in swing districts."
+            },
+            {
+                date: "February 28, 2026",
+                title: "Poll: Americans Support Science-Driven Policy",
+                excerpt: "New polling shows overwhelming support for science-based solutions regardless of political affiliation."
+            }
+        ];
+
+        // Populate candidates
+        const candidatesGrid = document.getElementById('candidatesGrid');
+        candidates.forEach((candidate, idx) => {
+            const card = document.createElement('div');
+            card.className = 'candidate-card';
+            card.style.animationDelay = `${idx * 0.1}s`;
+            card.innerHTML = `
+                <div class="candidate-image">
+                    <img src="${candidate.image}" alt="${candidate.name}">
+                </div>
+                <div class="candidate-info">
+                    <div class="candidate-name">${candidate.name}</div>
+                    <div class="candidate-district">${candidate.district}</div>
+                    <p class="candidate-bio">${candidate.bio}</p>
+                    <a href="#" class="candidate-link">Learn More →</a>
+                </div>
+            `;
+            candidatesGrid.appendChild(card);
+        });
+
+        // Populate beliefs
+        const beliefsGrid = document.getElementById('beliefsGrid');
+        beliefs.forEach((belief, idx) => {
+            const card = document.createElement('div');
+            card.className = 'belief-card';
+            card.style.animationDelay = `${idx * 0.1}s`;
+            card.innerHTML = `
+                <h3>${belief.title}</h3>
+                <p>${belief.desc}</p>
+            `;
+            beliefsGrid.appendChild(card);
+        });
+
+        // Populate press
+        const pressFeed = document.getElementById('pressFeed');
+        pressReleases.forEach((pr, idx) => {
+            const item = document.createElement('div');
+            item.className = 'press-item';
+            item.style.animationDelay = `${idx * 0.1}s`;
+            item.innerHTML = `
+                <div class="press-date">${pr.date}</div>
+                <div class="press-title">${pr.title}</div>
+                <p class="press-excerpt">${pr.excerpt}</p>
+                <a href="#" style="color: var(--accent-blue); text-decoration: none; font-weight: 600;">Read More →</a>
+            `;
+            pressFeed.appendChild(item);
+        });
+
+        // Page navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0, 0);
+            
+            // Trigger animations
+            setTimeout(() => {
+                document.querySelectorAll('.belief-card, .candidate-card, .press-item').forEach(el => {
+                    if (el.style.animation.includes('fadeInUp')) {
+                        el.style.animation = 'none';
+                        setTimeout(() => {
+                            el.style.animation = '';
+                        }, 10);
+                    }
+                });
+            }, 100);
+        }
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    if (entry.target.classList.contains('belief-card') || 
+                        entry.target.classList.contains('candidate-card') ||
+                        entry.target.classList.contains('press-item')) {
+                        entry.target.style.transform = 'translateY(0)';
+                        entry.target.style.opacity = '1';
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.belief-card, .candidate-card, .press-item, .section-title, .section-subtitle, .about-content h2, .about-content p, .about-image').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Parallax effect on hero
+        window.addEventListener('scroll', () => {
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                const scrolled = window.scrollY;
+                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
